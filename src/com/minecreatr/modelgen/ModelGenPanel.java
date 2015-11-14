@@ -2,6 +2,8 @@ package com.minecreatr.modelgen;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
@@ -106,7 +108,10 @@ public class ModelGenPanel extends JPanel {
                 }
                 try {
                     float num = ModelGenerator.generateModelRP(new File(fileName.getText()+".zip"), Integer.parseInt(numOfFrames.getText()), Integer.parseInt(framerate.getText()));
-                    JOptionPane.showMessageDialog(null, "Succesfully created zip" + fileName.getText()+".zip, Commandblock number is " + num, "Number", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Succesfully created zip" + fileName.getText() + ".zip, Commandblock number is " + num + " , it has been copied to your clipboard", "Number", JOptionPane.INFORMATION_MESSAGE);
+                    StringSelection selection = new StringSelection(""+num);
+                    Clipboard clpbrd = Toolkit.getDefaultToolkit().getSystemClipboard();
+                    clpbrd.setContents(selection, null);
                     addMessage("Number is " + num, false);
                 } catch (Exception exception){
                     JOptionPane.showMessageDialog(null, exception.getMessage(), "Error", JOptionPane.INFORMATION_MESSAGE);
